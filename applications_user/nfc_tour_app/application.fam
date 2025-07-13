@@ -1,9 +1,0 @@
-App(
-    appid="nfc_tour_app_test",
-    name="NFC Tour TEST",
-    apptype=FlipperAppType.EXTERNAL,
-    entry_point="nfc_tour_app_main",
-    stack_size=1 * 1024,
-    fap_icon="icon.png",
-    fap_category="Misc",
-)
