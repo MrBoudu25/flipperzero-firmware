@@ -14,13 +14,11 @@ typedef struct {
     Widget* widget;
 } App;
 
-// Callback pour le bouton retour pour quitter l'app
-static bool app_input_callback(InputEvent* event, void* context) {
+// Callback pour gérer l'événement du bouton "Retour" et quitter l'application.
+static bool app_navigation_callback(void* context) {
     UNUSED(context);
-    if(event->type == InputTypeShort && event->key == InputKeyBack) {
-        return false; 
-    }
-    return true;
+    // Retourner 'false' indique au view_dispatcher qu'il doit s'arrêter, ce qui quitte l'app.
+    return false;
 }
 
 // Point d'entrée principal
@@ -36,9 +34,10 @@ int32_t nfc_tour_app_main(void* p) {
     widget_add_string_element(app->widget, 64, 48, AlignCenter, AlignCenter, FontSecondary, "Si vous voyez ca, ca marche !");
 
     // Configure l'interface
-    view_dispatcher_set_input_callback(app->view_dispatcher, app_input_callback);
+    // Utilise la nouvelle fonction correcte pour gérer le bouton retour.
+    view_dispatcher_set_navigation_event_callback(app->view_dispatcher, app_navigation_callback);
     view_dispatcher_add_view(app->view_dispatcher, 0, widget_get_view(app->widget));
-    
+
     Gui* gui = furi_record_open(RECORD_GUI);
     view_dispatcher_attach_to_gui(app->view_dispatcher, gui, ViewDispatcherTypeFullscreen);
     view_dispatcher_switch_to_view(app->view_dispatcher, 0);
