@@ -1,0 +1,11 @@
+App(
+    appid="nfc_tour_app",
+    name="NFC Tour",
+    apptype=FlipperAppType.EXTERNAL,
+    entry_point="nfc_tour_app_main",
+    stack_size=2 * 1024,
+    fap_category="NFC",
+    requires=[
+        "nfc",
+    ],
+)
